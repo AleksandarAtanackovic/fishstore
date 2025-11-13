@@ -37,5 +37,4 @@ func main() {
 
 	fmt.Println(k, j, c, python, java)
 
-	fmt.println
 }
