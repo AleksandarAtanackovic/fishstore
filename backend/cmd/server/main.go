@@ -36,4 +36,6 @@ func main() {
 	var c, python, java = true, false, "no!"
 
 	fmt.Println(k, j, c, python, java)
+
+	fmt.println
 }
