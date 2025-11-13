@@ -31,4 +31,9 @@ func main() {
 	var i int
 	fmt.Println(i, c, python, java, fl)
 	fmt.Printf("%.2f\n", fl)
+
+	var k, j int = 1, 2
+	var c, python, java = true, false, "no!"
+
+	fmt.Println(k, j, c, python, java)
 }
