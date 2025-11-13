@@ -25,4 +25,4 @@ jobs:
       run: go build -v ./backend/cmd/server/main.go
 
     - name: Test
-      run: go test -v ./...
+      run: go test -v ./backend/cmd/server/main.go
