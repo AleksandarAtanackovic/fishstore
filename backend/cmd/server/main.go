@@ -7,6 +7,9 @@ import (
 	"time"
 )
 
+var c, python, java bool
+var fl float64
+
 func add(x, y int) int {
 	return x + y
 }
@@ -24,4 +27,8 @@ func main() {
 	fmt.Println("Result of addition is", add(4, 5))
 	word1, word2 := swap("hello", "world")
 	fmt.Println("Swaping words hello and world:", word1, word2)
+
+	var i int
+	fmt.Println(i, c, python, java, fl)
+	fmt.Printf("%.2f\n", fl)
 }
