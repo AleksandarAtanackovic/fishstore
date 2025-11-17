@@ -39,11 +39,19 @@ func main() {
 	fmt.Println(k, j, c, python, java)
 
 	//App part
-	var Name, Surname string
+	var name, surname, fishKind string
+	var fishWeight float32
 	fmt.Println("Enter name:")
-	fmt.Scanf("%v", &Name)
+	fmt.Scanf("%v", &name)
 	fmt.Println("Enter surname:")
-	fmt.Scanf("%v", &Surname)
+	fmt.Scanf("%v", &surname)
 
-	fmt.Printf("You have entered the name %v and surname %v! Welcome to our fishstore!\n", Name, Surname)
+	fmt.Printf("You have entered the name %v and surname %v! Welcome to our fishstore!\n", name, surname)
+
+	fmt.Println("Enter the kind of fish you want:")
+	fmt.Scanf("%v", &fishKind)
+
+	fmt.Println("How much fish in kg?")
+	fmt.Scanf("%f", &fishWeight)
+
 }
