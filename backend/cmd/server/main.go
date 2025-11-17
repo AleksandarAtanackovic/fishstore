@@ -19,6 +19,7 @@ func swap(a, b string) (string, string) {
 }
 
 func main() {
+	//Practicing part of the code
 	fmt.Println("Hello, World!")
 	fmt.Println("Time is", time.Now())
 	fmt.Println("My favorite number is", rand.Intn(10))
@@ -37,4 +38,12 @@ func main() {
 
 	fmt.Println(k, j, c, python, java)
 
+	//App part
+	var Name, Surname string
+	fmt.Println("Enter name:")
+	fmt.Scanf("%v", &Name)
+	fmt.Println("Enter surname:")
+	fmt.Scanf("%v", &Surname)
+
+	fmt.Printf("You have entered the name %v and surname %v! Welcome to our fishstore!\n", Name, Surname)
 }
