@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math"
 	"math/rand"
+	"runtime"
 	"time"
 )
 
@@ -63,6 +64,9 @@ func main() {
 		i++
 	}
 	fmt.Println(i)
+
+	os := runtime.GOOS
+	fmt.Println(os)
 
 	//App part
 	var name, surname, fishKind string
