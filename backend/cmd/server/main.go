@@ -78,6 +78,18 @@ func getOrder(context *gin.Context) {
 	context.IndentedJSON(http.StatusOK, order)
 }
 
+func togglePrepared(context *gin.Context) {
+	id := context.Param("id")
+	order, err := getOrderById(id)
+
+	if err != nil {
+		context.IndentedJSON(http.StatusNotFound, gin.H{"message": "Order not found"})
+	}
+	order.Prepared = !order.Prepared
+
+	context.IndentedJSON(http.StatusOK, order)
+}
+
 func getOrderById(id string) (*order, error) {
 	for i, t := range orders {
 		if t.ID == id {
@@ -92,6 +104,7 @@ func main() {
 	router := gin.Default()
 	router.GET("/api/orders", getOrders)
 	router.GET("/api/orders/:id", getOrder)
+	router.PATCH("/api/orders/:id", togglePrepared)
 	router.POST("/api/orders", addOrder)
 	router.Run("localhost:9090")
 }
