@@ -18,6 +18,19 @@ func swap(a, b string) (string, string) {
 	return b, a
 }
 
+func Sqrt(x float64) float64 {
+	z := 1.0
+	for i := 0; i < 10; i++ {
+		if math.Abs(z-(z-(z*z-x)/(2*z))) < 0.00000001 {
+			return z
+		}
+		z -= (z*z - x) / (2 * z)
+		fmt.Println(z)
+
+	}
+	return z
+}
+
 func main() {
 	//Practicing part of the code
 	fmt.Println("Hello, World!")
@@ -37,6 +50,19 @@ func main() {
 	var c, python, java = true, false, "no!"
 
 	fmt.Println(k, j, c, python, java)
+
+	//Sum of numbers from 0 to 9
+	sum := 0
+	for i := 0; i < 10; i++ {
+		sum += i
+	}
+	fmt.Println(sum)
+
+	i = 0
+	for i < 99999999 {
+		i++
+	}
+	fmt.Println(i)
 
 	//App part
 	var name, surname, fishKind string
