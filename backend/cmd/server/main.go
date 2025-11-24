@@ -1,87 +1,97 @@
 package main
 
 import (
+	"errors"
 	"fmt"
-	"math"
-	"math/rand"
-	"runtime"
-	"time"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
-var c, python, java bool
-var fl float64
+//The beginning idea for data model
+/*
+type Fish string
 
-func add(x, y int) int {
-	return x + y
+const (
+	Saran    Fish = "saran"
+	Oslic    Fish = "oslic"
+	Pastrmka Fish = "pastrmka"
+)
+
+type customer struct {
+	ID          string
+	Name        string
+	Surname     string
+	PhoneNumber string
 }
 
-func swap(a, b string) (string, string) {
-	return b, a
+type order struct {
+	ID        string
+	Customer  customer
+	CreatedAt time.Time
+	FishType  Fish
+
+}
+*/
+
+//Building a simple RESTful API
+
+type order struct {
+	ID           string `json:"id"`
+	CustomerName string `json:"customer"`
+	Fish         string `json:"fish"`
+	Prepared     bool   `json:"prepared"`
 }
 
-func Sqrt(x float64) float64 {
-	z := 1.0
-	for i := 0; i < 10; i++ {
-		if math.Abs(z-(z-(z*z-x)/(2*z))) < 0.00000001 {
-			return z
-		}
-		z -= (z*z - x) / (2 * z)
-		fmt.Println(z)
+var orders = []order{
+	{ID: "1", CustomerName: "Pera Peric", Fish: "Saran", Prepared: false},
+	{ID: "2", CustomerName: "Zika Zikic", Fish: "Oslic", Prepared: false},
+	{ID: "3", CustomerName: "Aca Faca", Fish: "Pastrmka", Prepared: false},
+}
 
+func getOrders(context *gin.Context) {
+	context.IndentedJSON(http.StatusOK, orders)
+	fmt.Println("Printing the request context:")
+	fmt.Println(context.Params)
+}
+
+func addOrder(context *gin.Context) {
+	var newOrder order
+
+	if err := context.BindJSON(&newOrder); err != nil {
+		return
 	}
-	return z
+
+	orders = append(orders, newOrder)
+
+	context.IndentedJSON(http.StatusCreated, newOrder)
+}
+
+func getOrder(context *gin.Context) {
+	id := context.Param("id")
+	order, err := getOrderById(id)
+
+	if err != nil {
+		context.IndentedJSON(http.StatusNotFound, gin.H{"message": "Order not found"})
+	}
+
+	context.IndentedJSON(http.StatusOK, order)
+}
+
+func getOrderById(id string) (*order, error) {
+	for i, t := range orders {
+		if t.ID == id {
+			return &orders[i], nil
+		}
+	}
+
+	return nil, errors.New("order not found")
 }
 
 func main() {
-	//Practicing part of the code
-	fmt.Println("Hello, World!")
-	fmt.Println("Time is", time.Now())
-	fmt.Println("My favorite number is", rand.Intn(10))
-	fmt.Printf("Now you have %g problems.\n", math.Sqrt(7))
-	fmt.Println("I like pie", math.Pi)
-	fmt.Println("Result of addition is", add(4, 5))
-	word1, word2 := swap("hello", "world")
-	fmt.Println("Swaping words hello and world:", word1, word2)
-
-	var i int
-	fmt.Println(i, c, python, java, fl)
-	fmt.Printf("%.2f\n", fl)
-
-	var k, j int = 1, 2
-	var c, python, java = true, false, "no!"
-
-	fmt.Println(k, j, c, python, java)
-
-	//Sum of numbers from 0 to 9
-	sum := 0
-	for i := 0; i < 10; i++ {
-		sum += i
-	}
-	fmt.Println(sum)
-
-	i = 0
-	for i < 99999999 {
-		i++
-	}
-	fmt.Println(i)
-
-	os := runtime.GOOS
-	fmt.Println(os)
-
-	//App part
-	var name, surname, fishKind string
-	var fishWeight float32
-	fmt.Println("Enter name:")
-	fmt.Scanf("%v", &name)
-	fmt.Println("Enter surname:")
-	fmt.Scanf("%v", &surname)
-
-	fmt.Printf("You have entered the name %v and surname %v! Welcome to our fishstore!\n", name, surname)
-
-	fmt.Println("Enter the kind of fish you want:")
-	fmt.Scanf("%v", &fishKind)
-
-	fmt.Println("How much fish in kg?")
-	fmt.Scanf("%f", &fishWeight)
-
+	router := gin.Default()
+	router.GET("/api/orders", getOrders)
+	router.GET("/api/orders/:id", getOrder)
+	router.POST("/api/orders", addOrder)
+	router.Run("localhost:9090")
 }
