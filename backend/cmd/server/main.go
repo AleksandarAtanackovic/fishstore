@@ -50,11 +50,16 @@ func addOrder(context *gin.Context) {
 		return
 	}
 
-	orders = append(orders, newOrder)
-
 	if newOrder.CreatedAt.IsZero() {
 		newOrder.CreatedAt = time.Now()
 	}
+
+	if !newOrder.FishType.IsValid() {
+		context.IndentedJSON(http.StatusBadRequest, gin.H{"error": "invalid fish type"})
+		return
+	}
+
+	orders = append(orders, newOrder)
 
 	context.IndentedJSON(http.StatusCreated, newOrder)
 }
@@ -90,6 +95,14 @@ func getOrderById(id string) (*order, error) {
 	}
 
 	return nil, errors.New("order not found")
+}
+
+func (f Fish) IsValid() bool {
+	switch f {
+	case Saran, Oslic, Pastrmka:
+		return true
+	}
+	return false
 }
 
 func main() {
