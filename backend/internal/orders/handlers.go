@@ -41,6 +41,16 @@ func GetOrders(context *gin.Context) {
 	context.IndentedJSON(http.StatusOK, orders)
 }
 
+func GetUnfinishedOrders(context *gin.Context) {
+	var unfinished []order
+	for _, order := range orders {
+		if !order.Completed {
+			unfinished = append(unfinished, order)
+		}
+	}
+	context.IndentedJSON(http.StatusOK, unfinished)
+}
+
 func AddOrder(context *gin.Context) {
 	var newOrder order
 
