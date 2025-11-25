@@ -4,12 +4,13 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
 
 //The beginning idea for data model
-/*
+
 type Fish string
 
 const (
@@ -19,35 +20,25 @@ const (
 )
 
 type customer struct {
-	ID          string
-	Name        string
-	Surname     string
-	PhoneNumber string
+	ID          string `json:"id"`
+	Name        string `json:"name"`
+	Surname     string `json:"surname"`
+	PhoneNumber string `json:"phone_number"`
 }
 
 type order struct {
-	ID        string
-	Customer  customer
-	CreatedAt time.Time
-	FishType  Fish
-
+	ID        string    `json:"id"`
+	Customer  customer  `json:"customer"`
+	CreatedAt time.Time `json:"created_at"`
+	FishType  Fish      `json:"fish_type"`
+	OrderType string    `json:"order_type"`
+	Prepared  bool      `json:"prepared"`
+	Completed bool      `json:"completed"`
 }
-*/
 
 //Building a simple RESTful API
 
-type order struct {
-	ID           string `json:"id"`
-	CustomerName string `json:"customer"`
-	Fish         string `json:"fish"`
-	Prepared     bool   `json:"prepared"`
-}
-
-var orders = []order{
-	{ID: "1", CustomerName: "Pera Peric", Fish: "Saran", Prepared: false},
-	{ID: "2", CustomerName: "Zika Zikic", Fish: "Oslic", Prepared: false},
-	{ID: "3", CustomerName: "Aca Faca", Fish: "Pastrmka", Prepared: false},
-}
+var orders = []order{}
 
 func getOrders(context *gin.Context) {
 	context.IndentedJSON(http.StatusOK, orders)
@@ -63,6 +54,10 @@ func addOrder(context *gin.Context) {
 	}
 
 	orders = append(orders, newOrder)
+
+	if newOrder.CreatedAt.IsZero() {
+		newOrder.CreatedAt = time.Now()
+	}
 
 	context.IndentedJSON(http.StatusCreated, newOrder)
 }
