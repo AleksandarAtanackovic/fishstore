@@ -59,7 +59,7 @@ func addOrder(context *gin.Context) {
 	context.IndentedJSON(http.StatusCreated, newOrder)
 }
 
-func getOrder(context *gin.Context) {
+func getOrderByApiId(context *gin.Context) {
 	id := context.Param("id")
 	order, err := getOrderById(id)
 
@@ -95,7 +95,7 @@ func getOrderById(id string) (*order, error) {
 func main() {
 	router := gin.Default()
 	router.GET("/api/v1/orders", getOrders)
-	router.GET("/api/v1/orders/:id", getOrder)
+	router.GET("/api/v1/orders/:id", getOrderByApiId)
 	router.PATCH("/api/v1/orders/:id", togglePrepared)
 	router.POST("/api/v1/orders", addOrder)
 	router.Run("localhost:9090")
