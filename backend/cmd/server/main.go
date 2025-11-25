@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"fmt"
 	"net/http"
 	"time"
 
@@ -42,8 +41,6 @@ var orders = []order{}
 
 func getOrders(context *gin.Context) {
 	context.IndentedJSON(http.StatusOK, orders)
-	fmt.Println("Printing the request context:")
-	fmt.Println(context.Params)
 }
 
 func addOrder(context *gin.Context) {
