@@ -97,9 +97,9 @@ func getOrderById(id string) (*order, error) {
 
 func main() {
 	router := gin.Default()
-	router.GET("/api/orders", getOrders)
-	router.GET("/api/orders/:id", getOrder)
-	router.PATCH("/api/orders/:id", togglePrepared)
-	router.POST("/api/orders", addOrder)
+	router.GET("/api/v1/orders", getOrders)
+	router.GET("/api/v1/orders/:id", getOrder)
+	router.PATCH("/api/v1/orders/:id", togglePrepared)
+	router.POST("/api/v1/orders", addOrder)
 	router.Run("localhost:9090")
 }
