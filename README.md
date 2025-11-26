@@ -9,13 +9,13 @@ Feel free to give me advice if you stumble upon this project somehow.
 
 
 ## How to run the app
-Currently, in this stage of the development, local testing is only available.  
+Currently in this stage of development, only local testing is possible without docker.  
 Download source code or clone the repo.  
-Position in the folder `/fishstore`  
+Position in the folder `/fishstore`.  
 If you have GO installed, run `go run backend/cmd/server/main.go`  
-Then test the api with `curl`, `ThunderClient` or `Postman`.  
+Then test the api with some http client like `curl`, `ThunderClient` or `Postman`.  
 
-Example of a `POST` call: 
+Example of a `POST` call with curl: 
 ```
 curl -X POST "http://localhost:9090/api/v1/orders" \
   -H "Content-Type: application/json" \
