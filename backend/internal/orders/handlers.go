@@ -9,11 +9,18 @@ import (
 )
 
 type Fish string
+type OrderType string
 
 const (
 	Saran    Fish = "saran"
 	Oslic    Fish = "oslic"
 	Pastrmka Fish = "pastrmka"
+)
+
+const (
+	Fry   OrderType = "fry"
+	Clean OrderType = "clean"
+	Fresh OrderType = "fresh"
 )
 
 type customer struct {
@@ -28,7 +35,7 @@ type order struct {
 	Customer  customer  `json:"customer"`
 	CreatedAt time.Time `json:"created_at"`
 	FishType  Fish      `json:"fish_type"`
-	OrderType string    `json:"order_type"`
+	OrderType OrderType `json:"order_type"`
 	Prepared  bool      `json:"prepared"`
 	Completed bool      `json:"completed"`
 }
@@ -62,8 +69,13 @@ func AddOrder(context *gin.Context) {
 		newOrder.CreatedAt = time.Now()
 	}
 
-	if !newOrder.FishType.IsValid() {
+	if !newOrder.FishType.isValidFish() {
 		context.IndentedJSON(http.StatusBadRequest, gin.H{"error": "invalid fish type"})
+		return
+	}
+
+	if !newOrder.OrderType.isValidOrderType() {
+		context.IndentedJSON(http.StatusBadRequest, gin.H{"error": "invalid order type"})
 		return
 	}
 
@@ -105,9 +117,17 @@ func getOrderById(id string) (*order, error) {
 	return nil, errors.New("order not found")
 }
 
-func (f Fish) IsValid() bool {
+func (f Fish) isValidFish() bool {
 	switch f {
 	case Saran, Oslic, Pastrmka:
+		return true
+	}
+	return false
+}
+
+func (f OrderType) isValidOrderType() bool {
+	switch f {
+	case Fry, Clean, Fresh:
 		return true
 	}
 	return false
