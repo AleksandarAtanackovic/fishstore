@@ -33,4 +33,38 @@ curl -X POST "http://localhost:9090/api/v1/orders" \
     "completed": false
   }'
 ```
+Example of a response:
+```
+{
+  "id": "1",
+  "customer": {
+    "id": "c1",
+    "name": "Zika",
+    "surname": "Zikic",
+    "phone_number": "0601012456"
+  },
+  "created_at": "2025-11-26T11:43:02.032788969+01:00",
+  "fish_type": "saran",
+  "order_type": "fry",
+  "prepared": false,
+  "completed": false
+}
+```
+
+## Api specification
+
+### Available endpoints
+
+The 1st version of api is located on the path `/api/v1`.  
+You can call:  
+`GET /orders` or `GET /order/:id` to get all the orders or the order with a specific id.  
+`GET /orders/unfinished` to get all uncompleted orders.  
+`POST /orders` to create an order.  
+`PATCH /orders/:id` to toggle the `prepared` value true/false.  
+
+### Data validation
+
+Some data validation will be done during an API call.  
+* `fish_type` must be one of the following values: `saran`, `pastrmka` or `oslic`.  
+* `order_type` must be one of the following values: `fry`, `clean`, or `fresh`.  
 
