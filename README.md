@@ -28,7 +28,7 @@ curl -X POST "http://localhost:9090/api/v1/orders" \
       "phone_number": "0601012456"
     },
     "fish_type": "saran",
-    "order_type": "Fry",
+    "order_type": "fry",
     "prepared": false,
     "completed": false
   }'
