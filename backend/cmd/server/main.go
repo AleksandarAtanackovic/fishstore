@@ -15,6 +15,7 @@ func main() {
 		router.POST("/api/v1/orders", orders.AddOrder)
 	*/
 	router.GET("/api/v2/customers", orders.GetCustomers)
+	router.POST("/api/v2/customers", orders.AddOrder)
 	router.Run("localhost:9090")
 
 }
