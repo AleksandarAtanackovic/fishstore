@@ -1,46 +1,39 @@
 package orders
 
-type Fish string
-type OrderType string
+import (
+	"net/http"
+	"time"
 
-const (
-	Saran    Fish = "saran"
-	Oslic    Fish = "oslic"
-	Pastrmka Fish = "pastrmka"
+	"github.com/gin-gonic/gin"
 )
 
-const (
-	Fry   OrderType = "fry"
-	Clean OrderType = "clean"
-	Fresh OrderType = "fresh"
-)
-
-/*
-type customer struct {
+type Customer struct {
 	ID          string `json:"id"`
 	Name        string `json:"name"`
 	Surname     string `json:"surname"`
 	PhoneNumber string `json:"phone_number"`
+	Order       Order  `json:"order"`
 }
 
-type order struct {
+type Order struct {
 	ID        string    `json:"id"`
-	Customer  customer  `json:"customer"`
 	CreatedAt time.Time `json:"created_at"`
 	FishType  Fish      `json:"fish_type"`
 	OrderType OrderType `json:"order_type"`
-	Prepared  bool      `json:"prepared"`
+	Ready     bool      `json:"prepared"`
 	Completed bool      `json:"completed"`
+	OrderTime time.Time `json:"order_time"`
 }
 
 //Building a simple RESTful API
 
-var orders = []order{}
+var customers = []Customer{}
 
-func GetOrders(context *gin.Context) {
-	context.IndentedJSON(http.StatusOK, orders)
+func GetCustomers(context *gin.Context) {
+	context.IndentedJSON(http.StatusOK, customers)
 }
 
+/*
 func GetUnfinishedOrders(context *gin.Context) {
 	var unfinished []order
 	for _, order := range orders {
