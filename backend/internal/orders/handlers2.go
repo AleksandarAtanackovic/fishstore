@@ -7,15 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Customer struct {
-	ID          string `json:"id"`
-	Name        string `json:"name"`
-	Surname     string `json:"surname"`
-	PhoneNumber string `json:"phone_number"`
-	Order       Order  `json:"order"`
-}
-
-type Order struct {
+type order struct {
 	ID        string    `json:"id"`
 	CreatedAt time.Time `json:"created_at"`
 	FishType  Fish      `json:"fish_type"`
@@ -25,9 +17,17 @@ type Order struct {
 	OrderTime time.Time `json:"order_time"`
 }
 
+type customer struct {
+	ID          string `json:"id"`
+	Name        string `json:"name"`
+	Surname     string `json:"surname"`
+	PhoneNumber string `json:"phone_number"`
+	Order       order  `json:"order"`
+}
+
 //Building a simple RESTful API
 
-var customers = []Customer{}
+var customers = []customer{}
 
 func GetCustomers(context *gin.Context) {
 	context.IndentedJSON(http.StatusOK, customers)
