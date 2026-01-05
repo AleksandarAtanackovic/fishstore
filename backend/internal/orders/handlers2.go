@@ -1,7 +1,6 @@
 package orders
 
 import (
-	"fmt"
 	"net/http"
 	"time"
 
@@ -56,7 +55,9 @@ func AddOrder(context *gin.Context) {
 		newOrder.CreatedAt = time.Now()
 	}
 
-	fmt.Printf("The type is %T", newOrder.Order)
+	customers = append(customers, newOrder)
+
+	context.IndentedJSON(http.StatusCreated, newOrder)
 }
 
 /*
