@@ -14,8 +14,8 @@ func main() {
 		router.PATCH("/api/v1/orders/:id", orders.TogglePrepared)
 		router.POST("/api/v1/orders", orders.AddOrder)
 	*/
-	router.GET("/api/v2/customers", orders.GetCustomers)
-	router.POST("/api/v2/customers", orders.AddOrder)
+	router.GET("/api/v2/orders", orders.GetCustomers)
+	router.POST("/api/v2/orders", orders.AddOrder)
 	router.Run("localhost:9090")
 
 }
