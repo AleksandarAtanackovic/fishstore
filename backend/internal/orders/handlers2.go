@@ -51,6 +51,8 @@ func AddOrder(context *gin.Context) {
 		return
 	}
 
+	newOrder.CreatedAt = time.Now()
+
 	if newOrder.CreatedAt.IsZero() {
 		newOrder.CreatedAt = time.Now()
 	}
