@@ -17,13 +17,13 @@ Then test the api with some http client like `curl`, `ThunderClient` or `Postman
 
 Example of a `POST` call with curl: 
 ```
-curl -X POST "http://localhost:9090/api/v1/orders" \
+curl -X POST "http://localhost:9090/api/v2/orders" \
   -H "Content-Type: application/json" \
   -d '{
-    "id": "1",
+    "id": "2",
     "name": "Aleksandar",
     "surname": "Atanackovic",
-    "phone_number": "+381641234567",
+    "phone_number": "0600111010",
     "order": [
       {
         "id": "01",
@@ -31,15 +31,15 @@ curl -X POST "http://localhost:9090/api/v1/orders" \
         "order_type": "fry",
         "prepared": false,
         "completed": false,
-        "order_time": "2026-01-02T18:30:00Z"
+        "order_time": "2026-01-05T14:00:00Z"
       },
       {
-        "id": "order-002",
-        "fish_type": "tuna",
-        "order_type": "fried",
+        "id": "02",
+        "fish_type": "oslic",
+        "order_type": "fry",
         "prepared": false,
         "completed": false,
-        "order_time": "2026-01-02T18:45:00Z"
+        "order_time": "2026-01-05T14:00:00Z"
       }
     ]
   }
