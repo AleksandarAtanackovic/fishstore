@@ -18,7 +18,8 @@ If you have GO installed, run `go run backend/cmd/server/main.go`
 
 ### Docker
 For now, until a public version of the docker image is published, clone the source code repo or download it, position at the root folder /fishstore and run  
-`docker build -t fishstore:0.0.1 .`. This will build the app image with a tag fishstore:0.0.1.  
+`docker build -t fishstore:0.0.1 .`  
+This will build the app image with a tag fishstore:0.0.1.  
 The run `docker run -p 9090:9090 fishstore:0.0.1`  
 
 
