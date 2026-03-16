@@ -1,6 +1,7 @@
 package orders
 
 import (
+	"database/sql"
 	"errors"
 	"net/http"
 	"time"
@@ -43,6 +44,11 @@ type order struct {
 //Building a simple RESTful API
 
 var orders = []order{}
+var db *sql.DB
+
+func InitDB(database *sql.DB) {
+	db = database
+}
 
 func GetOrders(context *gin.Context) {
 	context.IndentedJSON(http.StatusOK, orders)
