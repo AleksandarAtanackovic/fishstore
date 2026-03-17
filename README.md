@@ -11,7 +11,7 @@ Feel free to give me advice if you stumble upon this project somehow.
 ## How to run the app
 Currently in this stage of development, only local testing is possible with or without Docker.  
 ### !!IMPORTANT!!
-Since i am working on connecting the app to the database, if you don't have postgres installed locally, the app won't start.
+Since i am working on connecting the app to the database, if you don't have postgres installed locally, the app won't start. You will also need to set the password for the postgres user to be `password`, or change it in the source code.
 
 ### Without Docker
 Download source code or clone the repo.  
