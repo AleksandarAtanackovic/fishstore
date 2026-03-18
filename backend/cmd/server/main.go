@@ -18,7 +18,6 @@ func main() {
 	db, err := sql.Open("postgres", connStr)
 
 	if err != nil {
-		println("there was an error with the database")
 		log.Fatal(err)
 	}
 
