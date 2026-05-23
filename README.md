@@ -80,3 +80,6 @@ Some data validation will be done during an API call.
 * `fish_type` must be one of the following values: `saran`, `pastrmka` or `oslic`.  
 * `order_type` must be one of the following values: `fry`, `clean`, or `fresh`.  
 
+
+### use root to connect to a local database
+sudo -u postgres -i
