@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"log"
+	"os"
 
 	"github.com/AleksandarAtanackovic/fishstore/backend/internal/orders"
 	"github.com/gin-gonic/gin"
@@ -12,7 +13,10 @@ import (
 
 func main() {
 
-	connStr := "postgres://postgres:password@localhost:5432/fishstore?sslmode=disable"
+	connStr := os.Getenv("DATABASE_URL")
+	if connStr == "" {
+		connStr = "postgres://postgres:password@localhost:5432/fishstore?sslmode=disable"
+	}
 	db, err := sql.Open("postgres", connStr)
 
 	if err != nil {
