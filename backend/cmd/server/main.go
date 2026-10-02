@@ -2,9 +2,7 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
-	"time"
 
 	"github.com/AleksandarAtanackovic/fishstore/backend/internal/orders"
 	"github.com/gin-gonic/gin"
@@ -37,30 +35,13 @@ func main() {
 		(1,'oslic','clean',true);
 	*/
 	println("there wasnt an error with the database")
-	orders.InitDB(db)
-	rows, err := db.Query("SELECT id, order_time, completed FROM orders")
+	//orders.InitDB(db)
+	rows, err := db.Query("SELECT * FROM customers")
 
 	if err != nil {
 		println(err)
 	}
 	defer rows.Close()
-
-	for rows.Next() {
-		var id int
-		var orderTime time.Time
-		var completed bool
-
-		err := rows.Scan(&id, &orderTime, &completed)
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		fmt.Println(id, orderTime, completed)
-	}
-
-	if err := rows.Err(); err != nil {
-		log.Fatal(err)
-	}
 
 	router := gin.Default()
 	router.GET("/api/v1/orders", orders.GetOrders)
